@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select a Table - Telecoms DB</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            margin-top: 80px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.2s;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card-body {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .hover-box {
+            display: none;
+            position: absolute;
+            top: 105%;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            background-color: #f9fafc;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: left;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .card:hover .hover-box {
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .table-desc {
+            margin-top: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .attr-list {
+            padding-left: 15px;
+        }
+
+        .btn-select {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mb-5">Select a Table from the Telecoms Database</h2>
+    <div class="row justify-content-center">
+
+        <!-- Call_Details Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Call_Details</div>
+                    <div class="table-desc">Detailed usage and churn info per user.</div>
+                    <div class="hover-box">
+                        <strong>Description:</strong> Call and message details for each user, with churn status.<br><br>
+                        <strong>Attributes:</strong>
+                        <ul class="attr-list">
+                            <li>phone_number</li>
+                            <li>account_length</li>
+                            <li>vmail_message</li>
+                            <li>day_mins</li>
+                            <li>day_calls</li>
+                            <li>day_charge</li>
+                            <li>eve_mins</li>
+                            <li>eve_calls</li>
+                            <li>eve_charge</li>
+                            <li>night_mins</li>
+                            <li>night_calls</li>
+                            <li>night_charge</li>
+                            <li>intl_mins</li>
+                            <li>intl_calls</li>
+                            <li>intl_charge</li>
+                            <li>custserv_calls</li>
+                            <li>churn</li>
+                            <li>states</li>
+                            <li>age</li>
+                        </ul>
+                    </div>
+                    <form action="/select_table" method="POST">
+                        <input type="hidden" name="table_name" value="Call_Details">
+                        <button type="submit" class="btn btn-primary btn-select">Use This Table</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Churn_80 Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Churn_80</div>
+                    <div class="table-desc">Customer details for churn prediction.</div>
+                    <div class="hover-box">
+                        <strong>Description:</strong> Dataset of customers used for customer churn analysis.<br><br>
+                        <strong>Attributes:</strong>
+                        <ul class="attr-list">
+                            <li>state</li>
+                            <li>account_length</li>
+                            <li>area_code</li>
+                            <li>international_plan</li>
+                            <li>voice_mail_plan</li>
+                            <li>number_vmail_messages</li>
+                            <li>total_day_minutes</li>
+                            <li>total_day_calls</li>
+                            <li>total_day_charge</li>
+                            <li>total_eve_minutes</li>
+                            <li>total_eve_calls</li>
+                            <li>total_eve_charge</li>
+                            <li>total_night_minutes</li>
+                            <li>total_night_calls</li>
+                            <li>total_night_charge</li>
+                            <li>total_intl_minutes</li>
+                            <li>total_intl_calls</li>
+                            <li>total_intl_charge</li>
+                            <li>customer_service_calls</li>
+                            <li>churn</li>
+                        </ul>
+                    </div>
+                    <form action="/select_table" method="POST">
+                        <input type="hidden" name="table_name" value="Churn_80">
+                        <button type="submit" class="btn btn-primary btn-select">Use This Table</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Visualization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('home') }}" class="btn btn-danger">Home</a>
+
+    <div class="container mt-4">
+        <h1 class="text-center">Data Retriever & Visualizer</h1>
+
+        <!-- Form to take user input -->
+        <form method="POST" id="queryForm">
+            <div class="form-group">
+                <label for="question">Input your question:</label>
+                <input type="text" class="form-control" id="question" name="question"
+                       value="{{ request.form['question'] if request.form else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <div class="loading mt-3" id="loadingMessage">Processing your request...</div>
+
+        {% if question %}
+            <hr>
+            <h3>Generated SQL Query:</h3>
+            <pre class="bg-light p-3 border rounded">{{ query }}</pre>
+
+            {% if table %}
+                <h3>Query Results:</h3>
+                <div class="table-container">
+                    <div class="table-responsive">
+                        {{ table | safe }}
+                    </div>
+                </div>
+
+                <!-- Form to choose the chart type -->
+                <form method="POST">
+                    <input type="hidden" name="question" value="{{ question }}">
+                    <input type="hidden" name="query" value="{{ query }}">
+                    <div class="form-group mt-3">
+                        <label for="chart_type">Select Chart Type:</label>
+                        <select class="form-control" id="chart_type" name="chart_type" onchange="this.form.submit()">
+                            <option value="bar chart" {% if chart_type == "bar chart" %} selected {% endif %}> Bar Chart</option>
+                            <option value="pie chart" {% if chart_type == "pie chart" %} selected {% endif %}> Pie Chart</option>
+                            <option value="line chart" {% if chart_type == "line chart" %} selected {% endif %}> Line Chart</option>
+                            <option value="scatter plot" {% if chart_type == "scatter plot" %} selected {% endif %}> Scatter Plot</option>
+                            <option value="histogram" {% if chart_type == "histogram" %} selected {% endif %}> Histogram</option>
+                        </select>
+                    </div>
+                </form>
+
+                {% if chart %}
+                    <h3>Selected Chart:</h3>
+                    <div>{{ chart | safe }}</div>
+                {% else %}
+                    <p class="text-muted">No chart available for this query.</p>
+                {% endif %}
+            {% endif %}
+
+            {% if error %}
+                <div class="alert alert-danger mt-4">{{ error }}</div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $("#queryForm").submit(function() {
+            $("#loadingMessage").show();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualization Result</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+    <h2>Generated Chart</h2>
+
+    {% if chart %}
+        <div id="plotly-chart"></div>
+        <script>
+            var chartData = {{ chart | safe }};
+            Plotly.newPlot('plotly-chart', chartData.data, chartData.layout);
+        </script>
+    {% else %}
+        <p>No chart available.</p>
+    {% endif %}
+
+    <!-- Back Button -->
+    <form action="/query" method="GET">
+        <button type="submit">Back</button>
+    </form>
+
+</body>
+</html>

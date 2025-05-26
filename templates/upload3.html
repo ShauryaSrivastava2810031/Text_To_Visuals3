@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Dataset</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Upload Your Dataset</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info mt-3">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" onsubmit="return showLoading()">
+            <div class="form-group">
+                <label for="file">Choose CSV or Excel file:</label>
+                <input type="file" class="form-control-file" id="file" name="file" accept=".csv,.xlsx" required>
+            </div>
+            <button type="submit" class="btn btn-primary" id="uploadBtn">Upload</button>
+        </form>
+
+        <!-- Loading message shown during file upload -->
+        <div class="loading" id="loadingMessage">
+            Uploading file, please wait...
+        </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            const fileInput = document.getElementById('file');
+            if (!fileInput.files.length) {
+                alert("Please select a file.");
+                return false;
+            }
+
+            document.getElementById('uploadBtn').disabled = true;
+            document.getElementById('loadingMessage').style.display = 'block';
+            return true;
+        }
+    </script>
+</body>
+</html>

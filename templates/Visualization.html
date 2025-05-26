@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+    <h2>Query Result</h2>
+    <p><strong>SQL Query:</strong> {{ query }}</p>
+    <div>{{ table | safe }}</div>
+
+    <h3>Recommended Visualizations</h3>
+    <form action="/generate_chart" method="POST">
+        <input type="hidden" name="query" value="{{ query }}">
+        {% for chart in chart_suggestions %}
+            <button type="submit" name="chart_type" value="{{ chart }}">{{ chart }}</button>
+        {% endfor %}
+    </form>
+
+    <!-- Back Button -->
+    <form action="/query" method="GET">
+        <button type="submit">Back</button>
+    </form>
+
+</body>
+</html>
