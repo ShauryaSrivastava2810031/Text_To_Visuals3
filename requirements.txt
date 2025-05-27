@@ -1,10 +1,11 @@
-Flask
-Flask-Caching
+flask
+flask-Caching
 pandas
-SQLAlchemy
+sqlalchemy
 python-dotenv
 langchain
 langchain-community
 langchain-groq
 plotly
 werkzeug
+gunicorn
